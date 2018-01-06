@@ -14,7 +14,7 @@ class Thread extends Model
      */
     public function path()
     {
-        return '/threads/'.$this->id;
+        return '/threads/'.$this->channel->slug.'/'.$this->id;
     }
 
     /**
@@ -28,13 +28,23 @@ class Thread extends Model
     }
 
     /**
-     * Get the creator assoicated with the current thread.
+     * a Thread belongs to creator.
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
     public function creator()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /**
+     * a Thread belongs to channel.
+     *
+     * @return Illuminate\Database\Eloquent\Collection
+     */
+    public function channel()
+    {
+        return $this->belongsTo(Channel::class);
     }
 
     public function addReply($reply)

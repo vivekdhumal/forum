@@ -8,13 +8,34 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateThreadTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function testExample()
+    use RefreshDatabase;
+
+    public function setUp()
     {
-        $this->assertTrue(true);
+        parent::setUp();
+
+        $this->withoutExceptionHandling();
+    }
+
+    /** @test */
+    public function a_guest_may_not_create_new_thread()
+    {
+        $this->expectException('Illuminate\Auth\AuthenticationException');
+
+        $this->post('/threads', []);
+    }
+
+    /** @test */
+    public function an_authenticated_user_can_create_new_forum_thread()
+    {
+        $this->signIn();
+
+        $thread = make('App\Thread');
+
+        $this->post('/threads', $thread->toArray());
+
+        $this->get($thread->path())
+            ->assertSee($thread->title)
+            ->assertSee($thread->body);
     }
 }

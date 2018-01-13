@@ -2,11 +2,14 @@
 
 namespace App;
 
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
+    use RecordsActivity;
+
     protected $guarded = [];
 
     protected $with = ['creator', 'channel'];
@@ -15,11 +18,11 @@ class Thread extends Model
     {
         parent::boot();
 
-        static::addGlobalScope('replyCount', function(Builder $builder) {
+        static::addGlobalScope('replyCount', function (Builder $builder) {
             $builder->withCount('replies');
         });
 
-        static::deleting(function($thread){
+        static::deleting(function ($thread) {
             $thread->replies()->delete();
         });
     }
@@ -31,7 +34,7 @@ class Thread extends Model
      */
     public function path()
     {
-        return '/threads/'.$this->channel->slug.'/'.$this->id;
+        return '/threads/' . $this->channel->slug . '/' . $this->id;
     }
 
     /**

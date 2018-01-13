@@ -12,15 +12,15 @@ class FavoriteTest extends TestCase
     /** @test */
     public function a_guest_can_not_favorite_anything()
     {
-        $this->post('replies/1/favorites')
+        $this->withExceptionHandling()
+            ->post('replies/1/favorites')
             ->assertRedirect('/login');
     }
 
     /** @test */
     public function an_authenticated_user_can_favorite_any_reply()
     {
-        $this->withoutExceptionHandling()
-            ->signIn();
+        $this->signIn();
 
         $reply = create('App\Reply');
 
@@ -32,8 +32,7 @@ class FavoriteTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_not_favorite_reply_multiple_times()
     {
-        $this->withoutExceptionHandling()
-            ->signIn();
+        $this->signIn();
 
         $reply = create('App\Reply');
 

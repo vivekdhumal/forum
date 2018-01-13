@@ -9,13 +9,6 @@ class CreateThreadTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp()
-    {
-        parent::setUp();
-
-        $this->withoutExceptionHandling();
-    }
-
     /** @test */
     public function a_guest_may_not_create_new_thread()
     {

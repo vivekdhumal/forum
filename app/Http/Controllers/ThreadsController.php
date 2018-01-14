@@ -16,7 +16,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the thread.
      *
      * @param App\Channel $channel
      * @return \Illuminate\Http\Response
@@ -33,7 +33,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new thread.
      *
      * @return \Illuminate\Http\Response
      */
@@ -43,7 +43,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created thread in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -63,11 +63,11 @@ class ThreadsController extends Controller
             'body' => request('body')
         ]);
 
-        return redirect($thread->path());
+        return redirect($thread->path())->with('flash', 'Your thread has been published.');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified thread.
      *
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
@@ -80,7 +80,7 @@ class ThreadsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified thread from storage.
      *
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response

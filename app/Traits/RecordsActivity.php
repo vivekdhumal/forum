@@ -3,7 +3,6 @@
 namespace App\Traits;
 
 use App\Activity;
-use Illuminate\Database\Eloquent\Model;
 
 trait RecordsActivity
 {

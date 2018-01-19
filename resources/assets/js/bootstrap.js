@@ -6,6 +6,12 @@ import Axios from 'axios';
 window._ = Lodash;
 window.Vue = Vue;
 
+Vue.prototype.authorize = function (handler) {
+    let user = window.App.user;
+
+    return user ? handler(user) : false;
+}
+
 try {
     window.$ = window.jQuery = JQuery;
     require('bootstrap-sass');

@@ -69,8 +69,10 @@
             update() {
                 axios.patch('/replies/' + this.data.id, {
                     body: this.body
-                });
-
+                })
+                .catch(error => {
+                    flash(error.response.data.message, "danger");
+                })
                 this.editing = false;
 
                 flash("Your reply has been updated!");

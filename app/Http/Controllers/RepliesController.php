@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Reply;
 use App\Thread;
-use App\Inspections\Spam;
+use App\Rules\SpamFree;
 use Illuminate\Http\Request;
 
 class RepliesController extends Controller
@@ -19,12 +19,9 @@ class RepliesController extends Controller
         return $thread->replies()->paginate(20);
     }
 
-    public function store($channelId, Thread $thread, Spam $spam)
+    public function store($channelId, Thread $thread)
     {
-        request()->validate([
-            'body' => 'required',
-        ]);
-        $spam->detect(request('body'));
+        request()->validate(['body' => ['required', new SpamFree]]);
 
         $reply = $thread->addReply([
             'user_id' => auth()->id(),
@@ -41,6 +38,8 @@ class RepliesController extends Controller
     public function update(Reply $reply)
     {
         $this->authorize('update', $reply);
+
+        request()->validate(['body' => ['required', new SpamFree]]);
 
         $reply->update(request(['body']));
     }

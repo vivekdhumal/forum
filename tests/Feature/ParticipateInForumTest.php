@@ -113,6 +113,26 @@ class ParticipateInForumTest extends TestCase
 
         $this->expectException(\Exception::class);
 
-        $this->post($thread->path().'/replies', $reply->toArray());
+        $this->post($thread->path().'/replies', $reply->toArray())
+            ->assertStatus(422);
+    }
+
+    /** @test */
+    public function users_may_reply_only_once_per_minute()
+    {
+        $this->withExceptionHandling();
+
+        $this->signIn();
+
+        $thread = create('App\Thread');
+
+        $reply = make('App\Reply', ['body' => 'Hello world.']);
+
+        $this->post($thread->path().'/replies', $reply->toArray())
+            ->assertStatus(200);
+
+        $this->post($thread->path().'/replies', $reply->toArray())
+            ->assertStatus(429);
+
     }
 }

@@ -6,6 +6,8 @@ use App\Reply;
 use App\Thread;
 use App\Rules\SpamFree;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+use App\Http\Requests\CreateReplyRequest;
 
 class RepliesController extends Controller
 {
@@ -19,20 +21,12 @@ class RepliesController extends Controller
         return $thread->replies()->paginate(20);
     }
 
-    public function store($channelId, Thread $thread)
+    public function store($channelId, Thread $thread, CreateReplyRequest $request)
     {
-        request()->validate(['body' => ['required', new SpamFree]]);
-
-        $reply = $thread->addReply([
+        return $thread->addReply([
             'user_id' => auth()->id(),
             'body' => request('body')
-        ]);
-
-        if(request()->expectsJson()) {
-            return $reply->load('owner');
-        }
-
-        return back()->with('flash', 'Your reply has been left.');
+        ])->load('owner');
     }
 
     public function update(Reply $reply)

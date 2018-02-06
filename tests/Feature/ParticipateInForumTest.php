@@ -114,7 +114,7 @@ class ParticipateInForumTest extends TestCase
         $this->expectException(\Exception::class);
 
         $this->post($thread->path().'/replies', $reply->toArray())
-            ->assertStatus(422);
+            ->assertStatus(429);
     }
 
     /** @test */

@@ -10,6 +10,7 @@
         </div>
 
         <div class="col-md-4">
+            @if(count($trending))
             <div class="panel panel-default">
                 <div class="panel-heading">Trending Threads</div>
                 <div class="panel-body">
@@ -20,6 +21,7 @@
                     </ul>
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </div>

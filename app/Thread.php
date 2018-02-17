@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
-    use RecordsActivity, RecordsVisits;
+    use RecordsActivity;
 
     protected $guarded = [];
 

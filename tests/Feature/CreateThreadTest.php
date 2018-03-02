@@ -2,9 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Thread;
+use App\Activity;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Activity;
 
 class CreateThreadTest extends TestCase
 {
@@ -74,6 +75,24 @@ class CreateThreadTest extends TestCase
 
         $this->publishThread(['channel_id' => 999])
             ->assertSessionHasErrors('channel_id');
+    }
+
+    /** @test */
+    public function a_thread_required_a_unique_slug()
+    {
+        $this->signIn();
+
+        $thread = create('App\Thread', ['title' => 'Foo Title', 'slug' => 'foo-title']);
+
+        $this->assertEquals($thread->fresh()->slug, 'foo-title');
+
+        $this->post(route('threads'), $thread->toArray());
+
+        $this->assertTrue(Thread::whereSlug('foo-title-2')->exists());
+
+        $this->post(route('threads'), $thread->toArray());
+
+        $this->assertTrue(Thread::whereSlug('foo-title-3')->exists());
     }
 
     /** @test */

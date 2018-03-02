@@ -8,11 +8,20 @@ use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * Favorite the reply.
+     *
+     * @param \App\Reply  $reply  The reply
+     * @return Illuminate\Http\Response
+     */
     public function store(Reply $reply)
     {
         $reply->favorite();
@@ -24,6 +33,12 @@ class FavoritesController extends Controller
         return back();
     }
 
+    /**
+     * Unfavorite the reply.
+     *
+     * @param \App\Reply  $reply  The reply
+     * @return Illumniate\Http\Response
+     */
     public function destroy(Reply $reply)
     {
         $reply->unfavorite();

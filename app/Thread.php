@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\RecordsVisits;
+use App\Filters\ThreadFilters;
 use App\Traits\RecordsActivity;
 use App\Events\ThreadReceivedNewReply;
 use App\Notifications\ThreadWasUpdated;
@@ -13,12 +14,30 @@ class Thread extends Model
 {
     use RecordsActivity;
 
+    /**
+     * Don't apply mass-assignment protection.
+     *
+     * @var array
+     */
     protected $guarded = [];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
     protected $with = ['creator', 'channel'];
 
+    /**
+     * The accessor to append to the model's array form
+     *
+     * @var array
+     */
     protected $appends = ['isSubscribedTo'];
 
+    /**
+     * Boot the Thread instance.
+     */
     protected static function boot()
     {
         parent::boot();
@@ -68,6 +87,12 @@ class Thread extends Model
         return $this->belongsTo(Channel::class);
     }
 
+    /**
+     * Add a reply to the thread.
+     *
+     * @param array $reply
+     * @return App\Reply
+     */
     public function addReply($reply)
     {
         $reply = $this->replies()->create($reply);
@@ -77,11 +102,24 @@ class Thread extends Model
         return $reply;
     }
 
-    public function scopeFilter($query, $filters)
+    /**
+     * Apply all relevant thread filters.
+     *
+     * @param Illuminate\Database\Eloquent\Builder $query
+     * @param App\Filters\ThreadFilters $filters
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilter($query, ThreadFilters $filters)
     {
         return $filters->apply($query);
     }
 
+    /**
+     * Subscribe a user to the current thread.
+     *
+     * @param int|null $userId
+     * @return $this
+     */
     public function subscribe($userId = null)
     {
         $this->subscriptions()->create([
@@ -91,6 +129,11 @@ class Thread extends Model
         return $this;
     }
 
+    /**
+     * Unsubscribe a user from the current thread.
+     *
+     * @param int|null $userId
+     */
     public function unsubscribe($userId = null)
     {
         $this->subscriptions()
@@ -98,18 +141,33 @@ class Thread extends Model
             ->delete();
     }
 
+    /**
+     * A thread can have a many subscriptions.
+     *
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function subscriptions()
     {
         return $this->hasMany(ThreadSubscription::class);
     }
 
+    /**
+     * Determing if the current user is subscribed to the thread.
+     *
+     * @return bool
+     */
     public function getIsSubscribedToAttribute()
     {
         return $this->subscriptions()
                 ->where('user_id', auth()->id())
                 ->exists();
     }
-
+    /**
+     * Determine if the thread has been updated since the user last read it.
+     *
+     * @param App\User $user
+     * @return bool
+     */
     public function hasUpdatesFor($user = null)
     {
         $key = $user->visitedThreadCacheKey($this);

@@ -8,6 +8,12 @@ use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
 {
+    /**
+     * Show the user profile page.
+     *
+     * @param \App\User  $user   The user
+     * @return Illumniate\Http\Response.
+     */
     public function show(User $user)
     {
         $activties = Activity::feed($user);

@@ -12,7 +12,9 @@ use Illuminate\Support\Carbon;
 
 class ThreadsController extends Controller
 {
-
+    /**
+     * Create a new controller instance.
+     */
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
@@ -22,6 +24,8 @@ class ThreadsController extends Controller
      * Display a listing of the thread.
      *
      * @param App\Channel $channel
+     * @param App\Filters\ThreadFilters $filters
+     * @param App\Trending $trending Trending Threads
      * @return \Illuminate\Http\Response
      */
     public function index(Channel $channel, ThreadFilters $filters, Trending $trending)
@@ -51,7 +55,7 @@ class ThreadsController extends Controller
     /**
      * Store a newly created thread in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
     public function store(Thread $thread)
@@ -76,7 +80,9 @@ class ThreadsController extends Controller
     /**
      * Display the specified thread.
      *
+     * @param int $channel
      * @param  \App\Thread  $thread
+     * @param \App\Trending $trending Trending Threads
      * @return \Illuminate\Http\Response
      */
     public function show($channel, Thread $thread, Trending $trending)
@@ -88,7 +94,6 @@ class ThreadsController extends Controller
         $trending->push($thread);
 
         $thread->increment('visits');
-        //$thread->recordVisit();
 
         return view('threads.show', compact('thread'));
     }
@@ -96,6 +101,7 @@ class ThreadsController extends Controller
     /**
      * Remove the specified thread from storage.
      *
+     * @param  int  $channel
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
@@ -112,6 +118,13 @@ class ThreadsController extends Controller
         return redirect('/threads');
     }
 
+    /**
+     * Get thread as per the sepcified channel and filters
+     *
+     * @param App\Channel $channel
+     * @param App\Filters\ThreadFilters $filters
+     * @return App\Thread
+     */
     protected function getThreads(Channel $channel, ThreadFilters $filters)
     {
         $threads = Thread::latest()->filter($filters);

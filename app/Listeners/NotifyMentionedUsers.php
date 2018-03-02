@@ -13,7 +13,7 @@ class NotifyMentionedUsers
     /**
      * Handle the event.
      *
-     * @param  ThreadReceivedNewReply  $event
+     * @param  App\Event\ThreadReceivedNewReply  $event
      * @return void
      */
     public function handle(ThreadReceivedNewReply $event)

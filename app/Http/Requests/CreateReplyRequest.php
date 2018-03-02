@@ -19,6 +19,11 @@ class CreateReplyRequest extends FormRequest
         return Gate::allows('create', new \App\Reply);
     }
 
+    /**
+     * Determine if the user is failed to authorized.
+     *
+     * @return App\Exceptions\ThrottleException
+     */
     protected function failedAuthorization()
     {
         throw new ThrottleException('You are replying to frequently. Please take a break');

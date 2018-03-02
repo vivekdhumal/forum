@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+    /**
+     * List the top 5 users as per their name.
+     *
+     * @return App\User
+     */
     public function index()
     {
         $name = request('name');

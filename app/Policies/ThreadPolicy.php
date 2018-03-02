@@ -15,7 +15,7 @@ class ThreadPolicy
      *
      * @param  \App\User  $user
      * @param  \App\Thread  $thread
-     * @return mixed
+     * @return bool
      */
     public function update(User $user, Thread $thread)
     {

@@ -10,11 +10,12 @@ class ReplyPolicy
 {
     use HandlesAuthorization;
 
-    public function update(User $user, Reply $reply)
-    {
-        return $reply->user_id == $user->id;
-    }
-
+    /**
+     * Determin if the given user can create a new reply.
+     *
+     * @param App\User $user
+     * @return bool
+     */
     public function create(User $user)
     {
         if(!$lastReply = $user->fresh()->lastReply) {
@@ -22,5 +23,17 @@ class ReplyPolicy
         }
 
         return ! $lastReply->wasJustPublished();
+    }
+
+    /**
+     * Determin if the given user can update the reply.
+     *
+     * @param App\User $user
+     * @param App\Reply $reply
+     * @return bool
+     */
+    public function update(User $user, Reply $reply)
+    {
+        return $reply->user_id == $user->id;
     }
 }

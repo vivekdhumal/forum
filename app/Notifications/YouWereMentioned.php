@@ -13,6 +13,12 @@ class YouWereMentioned extends Notification
 
     protected $reply;
 
+    /**
+     * Create a new notification instance.
+     *
+     * @param App\Reply $reply
+     * @return void
+     */
     public function __construct($reply)
     {
         $this->reply = $reply;

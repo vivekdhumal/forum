@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 
 class RegisterConfirmationController extends Controller
 {
+    /**
+     * Confirm user email address
+     *
+     * @return Illuminate\Http\Response
+     */
     public function index()
     {
         $user = User::where('confirmation_token', request('token'))->first();

@@ -13,8 +13,18 @@ class ThreadReceivedNewReply
 {
     use Dispatchable, SerializesModels;
 
+    /**
+     * Specify a reply.
+     *
+     * @var App\Reply
+     */
     public $reply;
 
+    /**
+     * Create a new class instance.
+     *
+     * @param App\Reply $reply
+     */
     public function __construct($reply)
     {
         $this->reply = $reply;

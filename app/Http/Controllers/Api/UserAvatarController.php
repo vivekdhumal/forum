@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 
 class UserAvatarController extends Controller
 {
+    /**
+     * Upload the user avatar.
+     *
+     * @return Illuminate\Http\Response
+     */
     public function store()
     {
         request()->validate([

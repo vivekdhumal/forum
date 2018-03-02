@@ -6,10 +6,22 @@ use Exception;
 
 class InvalidKeywords
 {
+    /**
+     * Specify the invalid keywords.
+     *
+     * @var array
+     */
     protected $keywords = [
         'Yahoo customer support',
     ];
 
+    /**
+     * Detect the invalid keywords.
+     *
+     * @param string $body
+     * @throws Exception
+     * @return void
+     */
     public function detect($body)
     {
         foreach($this->keywords as $keyword) {

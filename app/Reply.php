@@ -32,7 +32,7 @@ class Reply extends Model
      *
      * @var array
      */
-    protected $appends = ['favoritesCount', 'isFavorited'];
+    protected $appends = ['favoritesCount', 'isFavorited', 'isBest'];
 
     /**
      * Boot the reply instance.
@@ -108,5 +108,24 @@ class Reply extends Model
     public function setBodyAttribute($body)
     {
         $this->attributes['body'] = preg_replace('/@([\w\-]+)/', '<a href="/profiles/$1">$0</a>', $body);
+    }
+
+    /**
+     * Determine if the current reply has been marked as the best reply.
+     *
+     * @return bool
+     */
+    public function isBest()
+    {
+        return $this->thread->best_reply_id == $this->id;
+    }
+
+    /**
+     * Get the is best attribute.
+     *
+     * @return callback
+     */
+    public function getIsBestAttribute() {
+        return $this->isBest();
     }
 }

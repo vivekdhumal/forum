@@ -6,9 +6,7 @@ use App\Traits\RecordsVisits;
 use App\Filters\ThreadFilters;
 use App\Traits\RecordsActivity;
 use App\Events\ThreadReceivedNewReply;
-use App\Notifications\ThreadWasUpdated;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
 
 class Thread extends Model
 {
@@ -34,6 +32,10 @@ class Thread extends Model
      * @var array
      */
     protected $appends = ['isSubscribedTo'];
+
+    protected $casts = [
+        'locked' => 'boolean',
+    ];
 
     /**
      * Boot the Thread instance.

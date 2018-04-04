@@ -19,14 +19,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post('/threads', 'ThreadsController@store')
-    ->middleware('must-confirm-email')
-    ->name('threads');
-
-Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
-Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy');
 Route::get('/threads/create', 'ThreadsController@create');
 Route::get('/threads/{channel?}', 'ThreadsController@index');
+Route::post('/threads', 'ThreadsController@store')->middleware('must-confirm-email')->name('threads');
+Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
+Route::patch('/threads/{channel}/{thread}', 'ThreadsController@update');
+Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy');
 Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
 Route::get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
 Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store');

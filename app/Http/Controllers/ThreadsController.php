@@ -59,7 +59,7 @@ class ThreadsController extends Controller
      * @param  App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function store(Thread $thread, Recaptcha $recaptcha)
+    public function store(Recaptcha $recaptcha)
     {
         request()->validate([
             'title' => ['required', new SpamFree],
@@ -68,7 +68,7 @@ class ThreadsController extends Controller
             'g-recaptcha-response' => ['required', $recaptcha]
         ]);
 
-        $thread = $thread->create([
+        $thread = Thread::create([
             'user_id' => auth()->id(),
             'channel_id' => request('channel_id'),
             'title' => request('title'),
@@ -102,6 +102,18 @@ class ThreadsController extends Controller
         $thread->increment('visits');
 
         return view('threads.show', compact('thread'));
+    }
+
+    public function update($channel, Thread $thread)
+    {
+        $this->authorize('update', $thread);
+
+        $thread->update(request()->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]));
+
+        return $thread;
     }
 
     /**

@@ -21,6 +21,7 @@ class RegistrationTest extends TestCase
         $this->post(route('register'), [
             'name' => 'John',
             'email' => 'John@example.com',
+            'username' => 'johndoe',
             'password' => 'foobar',
             'password_confirmation' => 'foobar'
         ]);
@@ -36,6 +37,7 @@ class RegistrationTest extends TestCase
         $this->post(route('register'), [
             'name' => 'John',
             'email' => 'John@example.com',
+            'username' => 'johndoe',
             'password' => 'foobar',
             'password_confirmation' => 'foobar'
         ]);

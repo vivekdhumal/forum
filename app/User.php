@@ -44,7 +44,7 @@ class User extends Authenticatable
      */
     public function getRouteKeyName()
     {
-        return 'name';
+        return 'username';
     }
     /**
      * Get all threads created by user.
@@ -93,7 +93,7 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return in_array($this->name, ['VivekDhumal', 'JohnDoe']);
+        return in_array($this->username, ['VivekDhumal', 'JohnDoe']);
     }
 
     /**

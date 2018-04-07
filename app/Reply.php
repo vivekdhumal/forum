@@ -6,6 +6,7 @@ use App\Favorite;
 use Carbon\Carbon;
 use App\Traits\Favoritable;
 use App\Traits\RecordsActivity;
+use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -127,5 +128,16 @@ class Reply extends Model
      */
     public function getIsBestAttribute() {
         return $this->isBest();
+    }
+
+    /**
+     * Get the sanitized body.
+     *
+     * @param string $body
+     * @return string
+     */
+    public function getBodyAttribute($body)
+    {
+        return Purify::clean($body);
     }
 }

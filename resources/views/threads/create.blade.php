@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('header')
+<link rel="stylesheet" href="/css/vendor/trix.css">
 <script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 
@@ -46,7 +47,7 @@
 
                         <div class="form-group">
                             <label for="body">Body</label>
-                            <textarea name="body" id="body" rows="8" class="form-control" required>{{ old('body') }}</textarea>
+                            <wysiwyg name="body" value="{{ old('body') }}"></wysiwyg>
                         </div>
 
                         <div class="form-group">

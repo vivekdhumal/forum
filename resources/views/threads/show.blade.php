@@ -1,7 +1,8 @@
 @extends('layouts.app')
 
 @section('header')
-    <link rel="stylesheet" href="/css/vendor/jquery.atwho.min.css">
+<link rel="stylesheet" href="/css/vendor/trix.css">
+<link rel="stylesheet" href="/css/vendor/jquery.atwho.min.css">
 @endsection
 
 @section('content')

@@ -7,6 +7,7 @@ use Laravel\Scout\Searchable;
 use App\Filters\ThreadFilters;
 use App\Traits\RecordsActivity;
 use App\Events\ThreadReceivedNewReply;
+use Stevebauman\Purify\Facades\Purify;
 use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
@@ -179,6 +180,18 @@ class Thread extends Model
                 ->where('user_id', auth()->id())
                 ->exists();
     }
+
+    /**
+     * Get the sanitized body.
+     *
+     * @param string $body
+     * @return string
+     */
+    public function getBodyAttribute($body)
+    {
+        return Purify::clean($body);
+    }
+
     /**
      * Determine if the thread has been updated since the user last read it.
      *

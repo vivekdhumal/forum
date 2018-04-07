@@ -31,6 +31,8 @@
         .mr-1 { margin-right: 1em; }
         .ml-a { margin-left: auto; }
         [v-cloak] { display: none; }
+        .ais-highlight > em { background: yellow; }
+        .ais-refinement-list__value { margin-left: 5px; }
     </style>
 
     @yield('header')

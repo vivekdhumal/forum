@@ -10,6 +10,23 @@
         </div>
 
         <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <img src="https://www.algolia.com/assets/pricing_new/algolia-powered-by-ac7dba62d03d1e28b0838c5634eb42a9.svg" alt="Algolia powered by">
+                </div>
+                <div class="panel-body">
+                    <form action="/threads/search">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="q">
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             @if(count($trending))
             <div class="panel panel-default">
                 <div class="panel-heading">Trending Threads</div>

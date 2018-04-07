@@ -6,10 +6,12 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "algolia/algoliasearch-client-php": "^1.25",
         "barryvdh/laravel-ide-helper": "^2.4",
         "fideloper/proxy": "~4.0",
         "kitetail/zttp": "^0.3.0",
         "laravel/framework": "5.6.*",
+        "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "predis/predis": "^1.1"
     },

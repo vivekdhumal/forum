@@ -2,9 +2,12 @@ import Lodash from 'lodash';
 import Vue from 'vue';
 import JQuery from 'jquery';
 import Axios from 'axios';
+import InstantSearch from 'vue-instantsearch';
 
 window._ = Lodash;
 window.Vue = Vue;
+
+Vue.use(InstantSearch);
 
 let authorizations = require('./authorizations');
 

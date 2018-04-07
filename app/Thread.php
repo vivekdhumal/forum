@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Traits\RecordsVisits;
+use Laravel\Scout\Searchable;
 use App\Filters\ThreadFilters;
 use App\Traits\RecordsActivity;
 use App\Events\ThreadReceivedNewReply;
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity, Searchable;
 
     /**
      * Don't apply mass-assignment protection.
@@ -218,5 +219,15 @@ class Thread extends Model
     public function markAsBestReply(Reply $reply)
     {
         $this->update(['best_reply_id' => $reply->id]);
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        return $this->toArray() + ['path' => $this->path()];
     }
 }

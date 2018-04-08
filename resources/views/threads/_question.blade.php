@@ -37,7 +37,7 @@
             <span class="flex">
                 <img src="{{ $thread->creator->avatar_path }}" alt="{{ $thread->creator->name }}" width="25" height="25" class="mr-1">
 
-                <a href="{{ route('profile', $thread->creator->name) }}">{{ $thread->creator->name }}</a> Posted:
+                <a href="{{ route('profile', $thread->creator) }}">{{ $thread->creator->name }}</a> Posted:
                 <span v-text="title"></span>
             </span>
         </div>

@@ -19,7 +19,7 @@
                     <div class="panel-body">
                         <p>
                             This thread was published {{ $thread->created_at->diffForHumans() }} by
-                            <a href="{{ route('profile', $thread->creator->name) }}">{{ $thread->creator->name }}</a>, and has
+                            <a href="{{ route('profile', $thread->creator->username) }}">{{ $thread->creator->name }}</a>, and has
                             <span v-text="repliesCount"></span> {{ str_plural("comment", $thread->replies_count) }}.
                         </p>
 

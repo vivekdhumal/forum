@@ -6,7 +6,6 @@ use App\User;
 use App\Reply;
 use App\Thread;
 use App\Rules\SpamFree;
-use Illuminate\Http\Request;
 use App\Http\Requests\CreateReplyRequest;
 
 class RepliesController extends Controller

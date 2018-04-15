@@ -7,7 +7,6 @@ use App\Channel;
 use App\Trending;
 use App\Rules\SpamFree;
 use App\Rules\Recaptcha;
-use Illuminate\Http\Request;
 use App\Filters\ThreadFilters;
 use Illuminate\Support\Carbon;
 

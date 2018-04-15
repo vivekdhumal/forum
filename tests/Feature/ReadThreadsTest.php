@@ -45,7 +45,7 @@ class ReadThreadsTest extends TestCase
     /** @test */
     public function an_authenticated_user_can_filter_threads_by_an_user_name()
     {
-        $this->signIn(create('App\User', ['name' => 'VivekDhumal']));
+        $this->signIn(create('App\User', ['username' => 'VivekDhumal']));
 
         $threadsByVivek = create('App\Thread', ['user_id' => auth()->id()]);
 

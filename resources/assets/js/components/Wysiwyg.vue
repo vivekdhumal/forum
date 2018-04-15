@@ -7,8 +7,6 @@
 
 <script>
     import Trix from 'trix';
-    import 'jquery.caret';
-    import 'at.js';
 
     export default {
         props: ['name', 'value', 'placeholder', 'shouldClear'],
@@ -20,18 +18,6 @@
 
             this.$watch('shouldClear', () => {
                 this.$refs.trix.value = '';
-            });
-
-             $(this.$refs.trix).atwho({
-                at: "@",
-                delay: 750,
-                callbacks: {
-                    remoteFilter: function(query, callback) {
-                        $.getJSON("/api/users", {name: query}, function(username) {
-                            callback(username)
-                        });
-                    }
-                }
             });
         }
     }
